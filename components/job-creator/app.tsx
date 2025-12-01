@@ -9,7 +9,6 @@ import { UserGuidance } from "./screens/user-guidance"
 import { ProgressDialog } from "./screens/progress-dialog"
 
 export type Screen = "options" | "guidance" | "database" | "builder" | "generated"
-const baseURl = process.env.NEXT_PUBLIC_BASE_URL || 'http:localhost:3000'
 
 export interface Field {
   column: string
@@ -92,7 +91,7 @@ export function JobCreatorApp() {
     setCurrentScreen("builder");
 
     try {
-       const response = await fetch(`${baseURl}/auth`, {
+       const response = await fetch("/api/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -189,7 +188,6 @@ export function JobCreatorApp() {
       {currentScreen === "generated" && (
         <GeneratedQuery
           database={formData.database}
-          jsonPayload={jsonPayload}
           sqlQuery={sqlQuery}
           onBackToHome={handleBackToOptions}
         />
